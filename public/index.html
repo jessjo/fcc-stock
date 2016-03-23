@@ -11,7 +11,7 @@
 	<script>
 		$(function () {
 
-    $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=large-dataset.json&callback=?', function (data) {
+    $.getJSON('https://www.quandl.com/api/v3/datasets/WIKI/GOOG.json?api_key=ZsQyRq1Tvfyosp-zkr1w', function (data) {
 
         // Create a timer
         var start = +new Date();
@@ -76,12 +76,12 @@
 
             series: [{
                 name: 'Stock Price',
-                data: data.data,
-                pointStart: data.pointStart,
-                pointInterval: data.pointInterval,
+                data: data.Positions,
+                pointStart:  data.Elements[0].DataSeries.close.minDate,
+                pointInterval: 1,
                 tooltip: {
                     valueDecimals: 1,
-                    valuePrefix: '$'
+                    valuePrfix: '$'
                 }
             }]
 
@@ -92,7 +92,6 @@
 
 	<head>
 		<title>Free Code Camp Stock Tracker</title>
-		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
 	</head>
 
 	<header>
