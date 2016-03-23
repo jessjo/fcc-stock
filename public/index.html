@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 
 <html>
+		<script src="https://code.highcharts.com/stock/highstock.js"></script>
+		
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20150503/json2.min.js"></script>
+
 	<script>
 		$(function () {
 
@@ -82,9 +88,6 @@
     });
 });
 	</script>
-	<script src="https://code.highcharts.com/stock/highstock.js"></script>
-<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
-	<div id="container" style="height: 400px; min-width: 310px"></div>
 
 	<head>
 		<title>Free Code Camp Stock Tracker</title>
@@ -96,6 +99,7 @@
 	</header>
 
 	<body>
+			<div id="container" style="height: 400px; min-width: 310px"></div>
 		<p>{{{stocks}}}</p>
 	<p>This is the main page for the app</p>
 	</body>
