@@ -13,7 +13,7 @@ function callAPI(res){
   		if (!error && response.statusCode == 200) {
     	var marketresponse = JSON.parse(body);
     		console.log("Got a response: ", marketresponse);
-    		loadPage(res, marketresponse);
+    		loadPage(res, JSON.stringify(marketresponse));
   		} else {
 			 console.log("Got an error: ", error, ", status code: ", response.statusCode);
   		}
@@ -23,7 +23,7 @@ function callAPI(res){
 
 function loadPage(res, marketresponse){
 		var data = {
-					stocks: marketresponse.toString()
+					stocks: marketresponse
 					
 				}
 				
