@@ -12,7 +12,7 @@ function callAPI(res){
 		request(url, function (error, response, body) {
   		if (!error && response.statusCode == 200) {
     	var marketresponse = JSON.parse(body);
-    		console.log("Got a response: ", marketresponse.Elements[0].DataSeries.close.minDate);
+    		console.log("Got a response: ", marketresponse.dataset.data);
     		loadPage(res, JSON.stringify(marketresponse));
   		} else {
 			 console.log("Got an error: ", error, ", status code: ", response.statusCode);
