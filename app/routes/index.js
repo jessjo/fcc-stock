@@ -15,7 +15,7 @@ function callAPI(res){
     		//console.log("Got a response: ", marketresponse.dataset.data);
     		var stockPriceArr =[];
     		for (var i=0; i<marketresponse.dataset.data.length; i++){
-    			
+    			console.log("The close was " + marketresponse.dataset.data[i][4]);
     		}
     		parseAPI(res, marketresponse);
   		} else {
