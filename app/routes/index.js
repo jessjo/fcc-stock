@@ -12,7 +12,7 @@ function callAPI(res){
 		request(url, function (error, response, body) {
   		if (!error && response.statusCode == 200) {
     	var marketresponse = JSON.parse(body);
-    		console.log("Got a response: ", marketresponse.dataset.data);
+    		//console.log("Got a response: ", marketresponse.dataset.data);
     		var stockPriceArr =[];
     		for (var i=0; i<marketresponse.dataset.data.length; i++){
     			
