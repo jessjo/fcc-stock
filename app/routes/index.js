@@ -25,10 +25,11 @@ function callAPI(res){
 
 function parseAPI (res,data){
 	//this is where I parse things to upload
+	var closePrices = [];
 	for (var i=0; i<data.dataset.data.length; i++){
-    			console.log("The close was " + data.dataset.data[i][4]);
+    			closePrices[i] = data.dataset.data[i][4];
     		}
-	
+	console.log ("start date was "+ data.dataset.data[data.dataset.data.length-1][0]);
 	loadPage(res, JSON.stringify(data));
 }
 
