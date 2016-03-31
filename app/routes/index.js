@@ -14,9 +14,6 @@ function callAPI(res){
     	var marketresponse = JSON.parse(body);
     		//console.log("Got a response: ", marketresponse.dataset.data);
     		var stockPriceArr =[];
-    		for (var i=0; i<marketresponse.dataset.data.length; i++){
-    			console.log("The close was " + marketresponse.dataset.data[i][4]);
-    		}
     		parseAPI(res, marketresponse);
   		} else {
 			 console.log("Got an error: ", error, ", status code: ", response.statusCode);
@@ -28,6 +25,9 @@ function callAPI(res){
 
 function parseAPI (res,data){
 	//this is where I parse things to upload
+	for (var i=0; i<data.dataset.data.length; i++){
+    			console.log("The close was " + data.dataset.data[i][4]);
+    		}
 	
 	loadPage(res, JSON.stringify(data));
 }
