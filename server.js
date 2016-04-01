@@ -5,6 +5,8 @@ var routes = require('./app/routes/index.js');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var ws = require("nodejs-websocket")
+var http = require('http');
+var server = http.createServer(function(request, response) {});
 
 var app = express();
 require('dotenv').load();
@@ -18,18 +20,10 @@ app.use(session({
 }));
 
 
+server.listen(1234, function() {
+    console.log((new Date()) + ' Server is listening on port 1234');
+});
 
-// Scream server example: "hi" -> "HI!!!"
-var server = ws.createServer(function (conn) {
-    console.log("New connection")
-    conn.on("text", function (str) {
-        console.log("Received "+str)
-        conn.sendText(str.toUpperCase()+"!!!")
-    })
-    conn.on("close", function (code, reason) {
-        console.log("Connection closed")
-    })
-}).listen(8001)
 
 routes(app);
 
