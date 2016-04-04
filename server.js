@@ -12,11 +12,12 @@ var https = require ("https");
 var app = express();
 require('dotenv').load();
 var http = require('http');
-var privateKey  = fs.readFileSync('sslcert/key.pem', 'utf8');
-var certificate = fs.readFileSync('sslcert/cert.pem', 'utf8');
+var privateKey  = fs.readFileSync('key.pem', 'utf8');
+var certificate = fs.readFileSync('cert.pem', 'utf8');
 var credentials = {key: privateKey, cert: certificate};
-var server = http.createServer(credentials, app);
 
+
+var server = http.createServer(credentials, app);
 server.listen(1234, function() {
     console.log((new Date()) + ' Server is listening on port 1234');
 });
