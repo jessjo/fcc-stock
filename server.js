@@ -15,7 +15,7 @@ var http = require('http');
 var privateKey  = fs.readFileSync('sslcert/key.pem', 'utf8');
 var certificate = fs.readFileSync('sslcert/cert.pem', 'utf8');
 var credentials = {key: privateKey, cert: certificate};
-var server = http.createServer(function(request, response) {});
+var server = http.createServer(credentials, app);
 
 server.listen(1234, function() {
     console.log((new Date()) + ' Server is listening on port 1234');
@@ -81,5 +81,3 @@ app.listen(port,  function () {
 	console.log('Node.js listening on port ' + port + '...');
 });
 
-var httpsServer = https.createServer(credentials, app);
-httpsServer.listen(8443);
