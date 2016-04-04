@@ -12,7 +12,7 @@ function callAPI(res){
 		var url = 'https://www.quandl.com/api/v3/datasets/WIKI/' + stockTicker + '.json?api_key=ZsQyRq1Tvfyosp-zkr1w';
 		request(url, function (error, response, body) {
   		if (!error && response.statusCode == 200) {
-    	var marketresponse = JSON.parse(body);
+    		var marketresponse = JSON.parse(body);
     		//console.log("Got a response: ", marketresponse.dataset.data);
     		var stockPriceArr =[];
     		parseAPI(res, marketresponse);
@@ -35,6 +35,9 @@ function parseAPI (res,data){
 }
 
 function loadPage(res, marketresponse){
+	
+	// where we use websockets to reload?
+	
 		var data = {
 					stocks: marketresponse
 					

@@ -9,6 +9,32 @@ var ws = require("nodejs-websocket")
 
 var app = express();
 require('dotenv').load();
+var http = require('http');
+var server = http.createServer(function(request, response) {});
+
+server.listen(1234, function() {
+    console.log((new Date()) + ' Server is listening on port 1234');
+});
+
+var WebSocketServer = require('websocket').server;
+var wsServer = new WebSocketServer({
+    httpServer: server
+});
+
+var count = 0;
+var clients = {};
+
+wsServer.on('request', function(r){
+    // Code here to run on connection
+    
+    var connection = r.accept('echo-protocol', r.origin);
+    
+    // Specific id for this client & increment count
+    var id = count++;
+    
+    // Store the connection method so we can loop through & contact all clients
+    clients[id] = connection;
+});
 
 mongoose.connect(process.env.MONGO_URI);
 
