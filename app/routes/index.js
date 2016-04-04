@@ -8,7 +8,8 @@ var request = require('request');
 module.exports = function (app) {
 
 function callAPI(res){
-		var url = 'https://www.quandl.com/api/v3/datasets/WIKI/GOOG.json?api_key=ZsQyRq1Tvfyosp-zkr1w';
+		var stockTicker = "GOOG";
+		var url = 'https://www.quandl.com/api/v3/datasets/WIKI/' + stockTicker + '.json?api_key=ZsQyRq1Tvfyosp-zkr1w';
 		request(url, function (error, response, body) {
   		if (!error && response.statusCode == 200) {
     	var marketresponse = JSON.parse(body);

@@ -5,8 +5,7 @@ var routes = require('./app/routes/index.js');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var ws = require("nodejs-websocket")
-var http = require('http');
-var server = http.createServer(function(request, response) {});
+
 
 var app = express();
 require('dotenv').load();
@@ -19,10 +18,6 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-
-server.listen(1234, function() {
-    console.log((new Date()) + ' Server is listening on port 1234');
-});
 
 
 routes(app);
