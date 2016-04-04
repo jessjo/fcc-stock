@@ -22,7 +22,7 @@ var wsServer = new WebSocketServer({
 });
 
 var count = 0;
-var clients = {};
+var clients = [];
 
 wsServer.on('request', function(r){
     // Code here to run on connection
