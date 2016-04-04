@@ -39,7 +39,8 @@ function loadPage(res, marketresponse){
 	// where we use websockets to reload?
 	
 		var data = {
-					stocks: marketresponse
+				//	stocks: marketresponse
+				stocks: "hi"
 					
 				}
 				

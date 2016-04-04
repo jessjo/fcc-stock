@@ -88,6 +88,24 @@
         });
     });
 });
+
+var ws = new WebSocket('ws://fcc-stock-jessjo.c9users.io/:1234', 'echo-protocol');
+
+//send stock tickers to server
+function sendMessage(){
+    var message = document.getElementById('message').value;
+    ws.send(message);
+}
+
+
+//response from server
+ws.addEventListener("stocks", function(e) {
+    // The data is simply the message that we're sending back
+    var msg = e.data;
+
+    // Append the message
+    document.getElementById('chatlog').innerHTML += '<br>' + msg;
+});
 	</script>
 
 	<head>
