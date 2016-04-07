@@ -17,7 +17,8 @@ var certificate = fs.readFileSync('cert.pem', 'utf8');
 var credentials = {key: privateKey, cert: certificate};
 
 
-var server = http.createServer(credentials, app);
+var server = https.createServer(credentials, app);
+
 server.listen(1234, function() {
     console.log((new Date()) + ' Server is listening on port 1234');
 });
