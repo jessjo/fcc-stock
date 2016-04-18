@@ -24,11 +24,7 @@ server.listen(1234, function() {
 });
 **/
 
-var server = https.createServer(credentials, app, function(request, response) {
-    console.log((new Date()) + ' Received request for ' + request.url);
-    response.writeHead(404);
-    response.end();
-});
+var server = https.createServer(credentials, app);
 
 server.listen(1234, function() {
     console.log((new Date()) + ' Server is listening on port 1234');
