@@ -8,31 +8,34 @@ var WebSocketServer = require('websocket').server;
 
 var fs = require("fs");
 var https = require ("https");
+var http = require('http');
 
 var app = express();
 require('dotenv').load();
-var http = require('http');
+
+mongoose.connect(process.env.MONGO_URI);
+
+app.use(session({
+	secret: 'secretpassphrasedonttell',
+	resave: false,
+	saveUninitialized: true
+}));
+
+
+
 var privateKey  = fs.readFileSync('key.pem', 'utf8');
 var certificate = fs.readFileSync('cert.pem', 'utf8');
 var credentials = {key: privateKey, cert: certificate};
 
-/**
-var server = https.createServer(credentials, app);
+var httpServer0 = https.createServer(credentials, app);
 
-server.listen(1234, function() {
-    console.log((new Date()) + ' Server is listening on port 1234');
-});
-**/
 
-var server = https.createServer(credentials, app);
-
-server.listen(1234, function() {
+httpServer0.listen(1234, function() {
     console.log((new Date()) + ' Server is listening on port 1234');
 });
  
-   var WebSocketServer = require('ws').Server;
     var wss = new WebSocketServer({
-        server: server
+        server: httpServer0
       });
  
     wss.on('connection', function connection(ws) {
@@ -44,13 +47,8 @@ server.listen(1234, function() {
     });
 
 
-mongoose.connect(process.env.MONGO_URI);
 
-app.use(session({
-	secret: 'secretpassphrasedonttell',
-	resave: false,
-	saveUninitialized: true
-}));
+
 
 
 
