@@ -8,7 +8,7 @@ var WebSocketServer = require('websocket').server;
 
 var fs = require("fs");
 var https = require ("https");
-var http = require('http');
+var http = require('http').Server(app);
 var io = require('socket.io').listen(app);
 
 var app = express();
@@ -21,6 +21,11 @@ app.use(session({
 	resave: false,
 	saveUninitialized: true
 }));
+
+
+http.listen(1234, function(){
+  console.log('listening on *:1234');
+});
 
 io.sockets.on('connection', function (socket) {
     socket.on('setPseudo', function (data) {
