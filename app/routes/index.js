@@ -67,5 +67,13 @@ app.route('/')
 			
 			
 		});
+		
+app.get('/scripts.js',function(req,res){
+	console.log ("here");
+    res.sendFile(path + '/public/scripts.js');
+});
 
 };
+
+
+
