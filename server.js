@@ -8,10 +8,10 @@ var WebSocketServer = require('websocket').server;
 
 var fs = require("fs");
 var https = require ("https");
-var http = require('http').Server(app);
+var app = express()();
 var io = require('socket.io').listen(app);
 
-var app = express();
+var http = require('http').Server(app);
 require('dotenv').load();
 
 mongoose.connect(process.env.MONGO_URI);
@@ -24,10 +24,11 @@ app.use(session({
 
 
 http.listen(1234, function(){
-  console.log('listening on *:1234');
+  console.log('http listening on *:1234');
 });
 
 io.sockets.on('connection', function (socket) {
+    console.log('connection');
     socket.on('setPseudo', function (data) {
         socket.set('pseudo', data);
     });
@@ -48,27 +49,6 @@ var certificate = fs.readFileSync('cert.pem', 'utf8');
 var credentials = {key: privateKey, cert: certificate};
 
 var httpServer = https.createServer(credentials, app);
-
-
-httpServer.listen(1234, function() {
-    console.log((new Date()) + ' Server is listening on port 1234');
-});
- 
-    var wss = new WebSocketServer({
-        server: httpServer
-      });
- 
-    wss.on('connection', function connection(ws) {
-      ws.on('message', function incoming(message) {
-        console.log('received: %s', message);
-      });
- 
-      ws.send('something');
-    });
-
-
-
-
 
 **/
 
