@@ -10,19 +10,22 @@
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 	<script src="https://jspm.io/system@0.16.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.0/angular2.min.js"></script>
 
 		<script>
 			
 		
 		var socket = io.connect();
 
-	    $('form').submit(function(){
-	        console.log("message submitted");
-             socket.emit('chat message', $('#m').val());
+
+        
+        function getRequest() {
+            console.log("message submitted");
+            console.log( document.getElementById("m").value);
+            socket.emit('chat message',document.getElementById("m").value);
             $('#m').val('');
             return false;
-        });
+            
+        }
         
         
         
@@ -128,7 +131,7 @@
     <form>
             <ul id="messages"></ul>
                 <form action="">
-                  <input id="m" autocomplete="off" /><button>Send</button>
+                  <input id="m" autocomplete="off" /><button onclick="getRequest();">Send</button>
                 </form>
 		<div id="container" style="height: 400px; min-width: 310px"></div>
 		<p>{{{stocks}}}</p>
