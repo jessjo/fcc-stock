@@ -17,12 +17,6 @@ mongoose.connect(process.env.MONGO_URI);
 var server = http.createServer(app);
 var io = socketio.listen(server);
 
-app.use(session({
-	secret: 'secretpassphrasedonttell',
-	resave: false,
-	saveUninitialized: true
-}));
-
 
 //socket.io
 var messages = [];
@@ -37,7 +31,6 @@ io.on('connection', function (socket) {
 
     socket.on('disconnect', function () {
       sockets.splice(sockets.indexOf(socket), 1);
-      updateRoster();
     });
 
     socket.on('message', function (msg) {
@@ -46,35 +39,19 @@ io.on('connection', function (socket) {
       if (!text)
         return;
 
-      socket.get('name', function (err, name) {
         var data = {
-          name: name,
           text: text
         };
 
         broadcast('message', data);
         messages.push(data);
-      });
+      
     });
 
-    socket.on('identify', function (name) {
-      socket.set('name', String(name || 'Anonymous'), function (err) {
-        updateRoster();
-      });
-    });
+   
   });
 
-function updateRoster() {
-  async.map(
-    sockets,
-    function (socket, callback) {
-      socket.get('name', callback);
-    },
-    function (err, names) {
-      broadcast('roster', names);
-    }
-  );
-}
+
 
 function broadcast(event, data) {
   sockets.forEach(function (socket) {
@@ -89,7 +66,7 @@ routes(app);
 
 
 
-server.listen(process.env.PORT || 8080, process.env.IP || "0.0.0.0", function(){
+server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
   var addr = server.address();
   console.log("Chat server listening at", addr.address + ":" + addr.port);
 });
