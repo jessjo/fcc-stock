@@ -9,13 +9,17 @@
 		<script src="https://code.highcharts.com/stock/highstock.js"></script>
 		<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 		<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+			<script src="https://jspm.io/system@0.16.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.0/angular2.min.js"></script>
+	
 		<script>
 		      function ChatController($scope) {
+		             console.log("here");
+        console.log($scope);
                 var socket = io.connect();
 
                 $scope.messages = [];
                 $scope.roster = [];
-                $scope.name = '';
                 $scope.text = '';
 
 

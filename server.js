@@ -29,8 +29,11 @@ var messages = [];
 var sockets = [];
 
 io.on('connection', function (socket) {
+    console.log('connection');
+    
     messages.forEach(function (data) {
       socket.emit('message', data);
+         console.log('msg');
     });
 
     sockets.push(socket);
@@ -40,6 +43,7 @@ io.on('connection', function (socket) {
     });
 
     socket.on('message', function (msg) {
+           console.log('msg received');
       var text = String(msg || '');
 
       if (!text)
