@@ -10,6 +10,7 @@ var https = require ("https");
 var app = express();
 var http = require('http');
 require('dotenv').load();
+var async = require('async');
 
 mongoose.connect(process.env.MONGO_URI);
 
@@ -23,6 +24,42 @@ app.use(session({
 }));
 
 
+//socket.io
+var messages = [];
+var sockets = [];
+
+io.on('connection', function (socket) {
+    messages.forEach(function (data) {
+      socket.emit('message', data);
+    });
+
+    sockets.push(socket);
+
+    socket.on('disconnect', function () {
+      sockets.splice(sockets.indexOf(socket), 1);
+    });
+
+    socket.on('message', function (msg) {
+      var text = String(msg || '');
+
+      if (!text)
+        return;
+
+
+        var data = {
+          text: text
+        }
+
+        broadcast('message', data);
+        messages.push(data);
+      });
+    });
+
+function broadcast(event, data) {
+  sockets.forEach(function (socket) {
+    socket.emit(event, data);
+  });
+}
 
 
 
