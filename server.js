@@ -7,7 +7,7 @@ var session = require('express-session');
 
 var fs = require("fs");
 var https = require ("https");
-var app = express()();
+var app = express();
 
 var http = require('http');
 require('dotenv').load();
@@ -21,9 +21,6 @@ app.use(session({
 }));
 
 
-http.listen(1234, function(){
-  console.log('http listening on *:1234');
-});
 
 
 

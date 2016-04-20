@@ -11,7 +11,7 @@ function callAPI(res){
 		var stockTicker = "GOOG";
 		var url = 'https://www.quandl.com/api/v3/datasets/WIKI/' + stockTicker + '.json?api_key=ZsQyRq1Tvfyosp-zkr1w';
 		request(url, function (error, response, body) {
-  		if (!error && response.statusCode == 200) {
+  		if (!error && response.statusCode != 'undefined' && response.statusCode == 200) {
     		var marketresponse = JSON.parse(body);
     		//console.log("Got a response: ", marketresponse.dataset.data);
     		var stockPriceArr =[];
