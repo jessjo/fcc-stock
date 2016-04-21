@@ -13,17 +13,15 @@ require('dotenv').load();
 var async = require('async');
 
 mongoose.connect(process.env.MONGO_URI);
-
-
-
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
 
 //socket.io
 var messages = [];
 var sockets = [];
 
 io.on('connection', function(socket){
-
-  
   socket.on('chat message', function(msg){
     console.log('message: ' + msg);
     io.emit('chat message', msg);
@@ -36,6 +34,8 @@ io.on('connection', function(socket){
 
 
 routes(app);
+
+});
 
 
 
