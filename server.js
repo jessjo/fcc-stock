@@ -11,7 +11,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 require('dotenv').load();
 var async = require('async');
-var Stocks = require('../models/stocks.js');
+var Stocks = require('./app/models/stocks.js');
 
 mongoose.connect(process.env.MONGO_URI);
 var db = mongoose.connection;
@@ -26,10 +26,18 @@ io.on('connection', function(socket){
   socket.on('chat message', function(msg){
     console.log('message: ' + msg);
     io.emit('chat message', msg);
-     Stocks.findOne({ 'id': req.body.PollNum }, function (err, stock) {
+     Stocks.findOne({ 'stockName': msg }, function (err, stock) {
             if (err) throw err;
-            if(poll){
-                        
+            if(stock){
+                  console.log("this already exists");
+            } else {
+                 console.log("this needs to be added");
+                    var newDoc = new Stocks({ 'stockName': msg
+                   });
+                  newDoc.save(function (err, doc) {
+                    if (err) { throw err; }
+                    console.log("saved!");
+                  });
             }
 
     });

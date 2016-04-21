@@ -5,7 +5,6 @@ var Schema = mongoose.Schema;
 
 var Stock = new Schema({
 	stock: {
-		id: String,
 		stockName: String,
 		stockData: String
 	}
