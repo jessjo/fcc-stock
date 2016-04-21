@@ -28,12 +28,14 @@ io.on('connection', function(socket){
     io.emit('chat message', msg);
      Stocks.findOne({ 'stockName': msg }, function (err, stock) {
             if (err) throw err;
+            console.log(stock);
             if(stock){
                   console.log("this already exists");
             } else {
                  console.log("this needs to be added");
                     var newDoc = new Stocks({ 'stockName': msg
                    });
+                   console.log (newDoc);
                   newDoc.save(function (err, doc) {
                     if (err) { throw err; }
                     console.log("saved!");
@@ -49,7 +51,7 @@ io.on('connection', function(socket){
 
 
 
-routes(app);
+routes(app, db);
 
 });
 

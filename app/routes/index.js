@@ -4,9 +4,9 @@ var path = process.cwd();
 var handlebars  = require('handlebars');
 var fs = require('fs');
 var request = require('request');
+var Stocks = require('../models/stocks.js');
 
-
-module.exports = function (app) {
+module.exports = function (app, db) {
 
 function callAPI(res){
 		var stockTicker = "GOOG";
@@ -38,10 +38,10 @@ function parseAPI (res,data){
 function loadPage(res, marketresponse){
 	
 	// where we use websockets to reload?
-	
+		var stockList = activeStocks();
 		var data = {
 				//	stocks: marketresponse
-				stocks: "hi"
+				stocks: "hi" + stockList
 					
 				}
 				
@@ -58,6 +58,21 @@ function loadPage(res, marketresponse){
                 }); 
 			
 	
+}
+
+function activeStocks(){
+	Stocks.find().sort().limit(5).exec(function(err, Stocks){
+		if (err) throw err;
+		if (Stocks){
+			var stockList="<ul>";
+          	for (var i=0;i<Stocks.length;i++){
+                 stockList += '<li>'+ Stocks[i].stockName +'</li>';
+           }
+           stockList+= "</ul>"
+           console.log(stockList);
+           return stockList;
+		}
+	});
 }
 
 
