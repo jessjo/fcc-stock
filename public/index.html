@@ -33,13 +33,18 @@
         }
         
          socket.on('chat message', function(msg){
-           var node = document.createElement("LI");                 // Create a <li> node
+           var node = document.createElement("LI");  
+           node.setAttribute("id", msg);
            var textnode = document.createTextNode(msg);         // Create a text node
            node.appendChild(textnode);                              // Append the text to <li>
            document.getElementById("stockList").appendChild(node);     // Append <li> to <ul> with id="myList"
          });
          
          socket.on('remove stock', function(stock){
+             
+            var element = document.getElementById(stock);
+            element.outerHTML = "";
+          //  delete element;
              
          });
         

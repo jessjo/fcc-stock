@@ -41,14 +41,10 @@ function loadPage(res, marketresponse){
  	activeStocks(function(stockList){
 			var data = {
 				//	stocks: marketresponse
-				stocks: "hi" + stockList
+				stocks: stockList
 					
 				}
 				
-				
-		
-	
-
 				
 			    fs.readFile('public/index.html', 'utf-8', function(error, source){
                 	var template = handlebars.compile(source);
@@ -71,8 +67,8 @@ function activeStocks(printPage){
 			var stockList="<ul id='stocklist'>";
           	for (var i=0;i<Stocks.length;i++){
           		if(Stocks[i].stockName != undefined){
-                 	stockList += '<li>'+ Stocks[i].stockName +'  <button onclick="removeStock(' +"'"+Stocks[i].stockName+ "'"+');">Remove</button> </li>';
-           
+                 	stockList += '<li id='+'"'+Stocks[i].stockName+ '"' +'>'+ Stocks[i].stockName +'  <button onclick="removeStock(' +"'"+Stocks[i].stockName+ "'"+');">Remove</button> </li>';
+            
           		}
           	}
            stockList+= "</ul>"
