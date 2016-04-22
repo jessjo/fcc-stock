@@ -32,111 +32,118 @@
             return false;
         }
         
+        
+        
          socket.on('chat message', function(msg){
-           var node = document.createElement("LI");  
+           var node = document.createElement("li");  
            node.setAttribute("id", msg);
            var textnode = document.createTextNode(msg);         // Create a text node
            node.appendChild(textnode);                              // Append the text to <li>
-           document.getElementById("stockList").appendChild(node);     // Append <li> to <ul> with id="myList"
+           document.getElementById("stockList").appendChild(node);     // 
          });
          
          socket.on('remove stock', function(stock){
             console.log("prepare to remove stock");
             var element = document.getElementById(stock);
             element.outerHTML = "";
-          //  delete element;
              
          });
         
         
         
-             
+        function callAPI(stock){
+            $.getJSON('https://www.quandl.com/api/v3/datasets/WIKI/'+stock+'.json?api_key=ZsQyRq1Tvfyosp-zkr1w', function (data) {
+        
+                // Create a timer
+                var start = +new Date();
+               	var closePrices = [];
+	            for (var i=0; i<data.dataset.data.length; i++){
+    			        closePrices[i] = data.dataset.data[i][4];
+    	    	}
+                // Create the chart
+                $('#container').highcharts('StockChart', {
+                    chart: {
+                        events: {
+                            load: function () {
+                                if (!window.isComparing) {
+                                    this.setTitle(null, {
+                                        text: 'Built chart in ' + (new Date() - start) + 'ms'
+                                    });
+                                }
+                            }
+                        },
+                        zoomType: 'x'
+                    },
+        
+                    rangeSelector: {
+        
+                        buttons: [{
+                            type: 'day',
+                            count: 3,
+                            text: '3d'
+                        }, {
+                            type: 'week',
+                            count: 1,
+                            text: '1w'
+                        }, {
+                            type: 'month',
+                            count: 1,
+                            text: '1m'
+                        }, {
+                            type: 'month',
+                            count: 6,
+                            text: '6m'
+                        }, {
+                            type: 'year',
+                            count: 1,
+                            text: '1y'
+                        }, {
+                            type: 'all',
+                            text: 'All'
+                        }],
+                        selected: 3
+                    },
+        
+                    yAxis: {
+                        title: {
+                            text: 'Stock Price (USD)'
+                        }
+                    },
+        
+                    title: {
+                        text: 'Stocks'
+                    },
+        
+                    subtitle: {
+                        text: 'Built chart in ...' // dummy text to reserve space for dynamic subtitle
+                    },
+        
+                    series: [{
+                        name: 'Stock Price',
+                        data: closePrices,
+                        pointStart:   data.dataset.data[data.dataset.data.length-1][0],
+                        pointInterval: 1,
+                        tooltip: {
+                            valueDecimals: 1,
+                            valuePrfix: '$'
+                        }
+                    }]
+        
+                });
+            });
+
+            
+        }
 
 		
-		/**
+
 		$(function () {
-
-    $.getJSON('https://www.quandl.com/api/v3/datasets/WIKI/GOOG.json?api_key=ZsQyRq1Tvfyosp-zkr1w', function (data) {
-
-        // Create a timer
-        var start = +new Date();
-       
-        // Create the chart
-        $('#container').highcharts('StockChart', {
-            chart: {
-                events: {
-                    load: function () {
-                        if (!window.isComparing) {
-                            this.setTitle(null, {
-                                text: 'Built chart in ' + (new Date() - start) + 'ms'
-                            });
-                        }
-                    }
-                },
-                zoomType: 'x'
-            },
-
-            rangeSelector: {
-
-                buttons: [{
-                    type: 'day',
-                    count: 3,
-                    text: '3d'
-                }, {
-                    type: 'week',
-                    count: 1,
-                    text: '1w'
-                }, {
-                    type: 'month',
-                    count: 1,
-                    text: '1m'
-                }, {
-                    type: 'month',
-                    count: 6,
-                    text: '6m'
-                }, {
-                    type: 'year',
-                    count: 1,
-                    text: '1y'
-                }, {
-                    type: 'all',
-                    text: 'All'
-                }],
-                selected: 3
-            },
-
-            yAxis: {
-                title: {
-                    text: 'Stock Price (USD)'
-                }
-            },
-
-            title: {
-                text: 'Stocks'
-            },
-
-            subtitle: {
-                text: 'Built chart in ...' // dummy text to reserve space for dynamic subtitle
-            },
-
-            series: [{
-                name: 'Stock Price',
-                data: data.Positions,
-                pointStart:  data.Elements[0].DataSeries.close.minDate,
-                pointInterval: 1,
-                tooltip: {
-                    valueDecimals: 1,
-                    valuePrfix: '$'
-                }
-            }]
+		    callAPI('goog');
 
         });
-    });
-});
 
 
 
-**/
 	</script>
 
 	<head>
@@ -155,6 +162,7 @@
                   <input id="m" autocomplete="off" /><button onclick="getRequest();">Send</button>
                 </form>
 		<div id="container" style="height: 400px; min-width: 310px"></div>
+		
 		<p>{{{stocks}}}</p>
 		<div id="stocks"></div>
 

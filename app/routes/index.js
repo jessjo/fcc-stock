@@ -9,6 +9,7 @@ var Stocks = require('../models/stocks.js');
 module.exports = function (app, db) {
 
 function callAPI(res){
+	// in the future we should run this for every stock we have.
 		var stockTicker = "GOOG";
 		var url = 'https://www.quandl.com/api/v3/datasets/WIKI/' + stockTicker + '.json?api_key=ZsQyRq1Tvfyosp-zkr1w';
 		request(url, function (error, response, body) {
@@ -31,7 +32,9 @@ function parseAPI (res,data){
 	for (var i=0; i<data.dataset.data.length; i++){
     			closePrices[i] = data.dataset.data[i][4];
     		}
-	console.log ("start date was "+ data.dataset.data[data.dataset.data.length-1][0]);
+	//console.log ("start date was "+ data.dataset.data[data.dataset.data.length-1][0]);
+
+
 	loadPage(res, JSON.stringify(data));
 }
 
@@ -40,7 +43,7 @@ function loadPage(res, marketresponse){
 	// 
  	activeStocks(function(stockList){
 			var data = {
-				//	stocks: marketresponse
+				graph:marketresponse,
 				stocks: stockList
 					
 				}
