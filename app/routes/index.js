@@ -70,8 +70,11 @@ function activeStocks(printPage){
 		if (Stocks){
 			var stockList="<ul>";
           	for (var i=0;i<Stocks.length;i++){
-                 stockList += '<li>'+ Stocks[i].stockName +'  <button onclick="removeStock('+Stocks[i].stockName.toString()+');">Remove</button> </li>';
-           }
+          		if(Stocks[i].stockName != undefined){
+                 	stockList += '<li>'+ Stocks[i].stockName +'  <button onclick="removeStock(' +"'"+Stocks[i].stockName+ "'"+');">Remove</button> </li>';
+           
+          		}
+          	}
            stockList+= "</ul>"
            console.log(stockList);
            printPage(stockList);
