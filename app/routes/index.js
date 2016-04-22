@@ -76,7 +76,6 @@ function activeStocks(printPage){
           		}
           	}
            stockList+= "</ul>"
-           console.log(stockList);
            printPage(stockList);
 		}
 	});

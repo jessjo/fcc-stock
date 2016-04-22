@@ -24,8 +24,8 @@ var sockets = [];
 
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
-    console.log('message: ' + msg);
-    io.emit('chat message', msg);
+     console.log('message: ' + msg);
+     io.emit('chat message', msg);
      Stocks.findOne({ 'stockName': msg }, function (err, stock) {
             if (err) throw err;
             console.log(stock);
@@ -43,6 +43,22 @@ io.on('connection', function(socket){
             }
 
     });
+     
+    
+  });
+  socket.on('remove stock', function(stock){
+    console.log('stock: ' + stock);
+    Stocks.remove({ 'stockName': stock }, function(err) {
+    if (!err) {
+            console.log ('success')
+    }
+    else {
+            throw err;
+    }
+});
+     
+     
+    
   });
 });
 

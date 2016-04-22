@@ -29,7 +29,7 @@
         function removeStock(stock){
             console.log("remove this stock" + stock);
             socket.emit('remove stock', stock);
-            
+            return false;
         }
         
          socket.on('chat message', function(msg){
@@ -40,7 +40,6 @@
          });
          
          socket.on('remove stock', function(stock){
-             //get removed stock and pass back to server so server can remove
              console.log("code reached");
              
          });
