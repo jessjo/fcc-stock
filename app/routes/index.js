@@ -37,9 +37,9 @@ function parseAPI (res,data){
 
 function loadPage(res, marketresponse){
 	
-	// where we use websockets to reload?
-		var stockList = activeStocks();
-		var data = {
+	// 
+ 	activeStocks(function(stockList){
+			var data = {
 				//	stocks: marketresponse
 				stocks: "hi" + stockList
 					
@@ -56,11 +56,15 @@ function loadPage(res, marketresponse){
             		 res.send(html);
            
                 }); 
+		});
+		
+		// TODO a call back to make sure stock list is defined. 
+		
 			
 	
 }
 
-function activeStocks(){
+function activeStocks(printPage){
 	Stocks.find().sort().limit(5).exec(function(err, Stocks){
 		if (err) throw err;
 		if (Stocks){
@@ -70,7 +74,7 @@ function activeStocks(){
            }
            stockList+= "</ul>"
            console.log(stockList);
-           return stockList;
+           printPage(stockList);
 		}
 	});
 }
