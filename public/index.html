@@ -10,6 +10,7 @@
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 	<script src="https://jspm.io/system@0.16.js"></script>
+	<script src="https://cdn.jsdelivr.net/momentjs/2.13.0/moment.min.js"></script>
 
 		<script>
 			
@@ -100,23 +101,43 @@ $(function () {
 
     $.each(names, function (i, name) {
 
-        $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=' + name.toLowerCase() + '-c.json&callback=?',    function (data) {
+        $.getJSON( 'https://www.quandl.com/api/v3/datasets/WIKI/' + name.toLowerCase() + '.json?api_key=ZsQyRq1Tvfyosp-zkr1w',    function (data) {
 
-            seriesOptions[i] = {
+
+          processData(data, function(processed){
+             seriesOptions[i] = {
                 name: name,
-                data: data
+                data: processed
             };
-
-            // As we're loading the data asynchronously, we don't know what order it will arrive. So
-            // we keep a counter and create the chart when all the data is loaded.
+            
             seriesCounter += 1;
 
             if (seriesCounter === names.length) {
                 createChart();
             }
+              
+          })
+           
+                
+            
+
         });
     });
 });
+
+function processData(data, spitOutChart ) {
+     //processes data into an array of dates, values
+            var processed = [];
+            var startdate =data.dataset.data[data.dataset.data.length-1][0];
+           	for (var i=0; i<data.dataset.data.length; i++){
+    			processed[i] = [];
+    			processed[i][0] = Math.floor(moment(startdate).add(i, 'days').format('x'));
+    			processed[i][1] = data.dataset.data[i][4];
+    			//console.log(processed[i]);
+    		}
+    spitOutChart(processed);
+    console.log(processed);
+}
         
         
 
