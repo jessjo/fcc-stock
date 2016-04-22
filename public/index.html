@@ -52,13 +52,16 @@
 
 $(function () {
     var seriesOptions = [],
-        seriesCounter = 0,
-        names = ['MSFT', 'AAPL', 'GOOG'];
+        seriesCounter = 0;
+      var names = [];
+      
+      var nodes = document.getElementById('stocklist').getElementsByTagName("li");
+        for(var i=0; i<nodes.length; i++) {
+                console.log (nodes[i].id);
+                names[names.length] = nodes[i].id;
+    }
+    console.log(names);
 
-    /**
-     * Create the chart when all data is loaded
-     * @returns {undefined}
-     */
     function createChart() {
 
         $('#container').highcharts('StockChart', {
@@ -135,7 +138,7 @@ $(function () {
     <form>
  
                 <form action="">
-                  <input id="m" autocomplete="off" /><button onclick="getRequest();">Send</button>
+                  <input id="m" autocomplete="off" /><button onclick="getRequest();">Add Stock</button>
                 </form>
 		<div id="container" style="height: 400px; min-width: 310px"></div>
 		
