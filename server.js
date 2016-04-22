@@ -55,6 +55,7 @@ io.on('connection', function(socket){
     else {
             throw err;
     }
+    io.emit('remove stock', stock);
 });
      
      

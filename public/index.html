@@ -41,7 +41,7 @@
          });
          
          socket.on('remove stock', function(stock){
-             
+            console.log("prepare to remove stock");
             var element = document.getElementById(stock);
             element.outerHTML = "";
           //  delete element;
