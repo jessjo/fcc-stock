@@ -65,12 +65,12 @@ function loadPage(res, marketresponse){
 }
 
 function activeStocks(printPage){
-	Stocks.find().sort().limit(5).exec(function(err, Stocks){
+	Stocks.find().sort().limit(10).exec(function(err, Stocks){
 		if (err) throw err;
 		if (Stocks){
 			var stockList="<ul>";
           	for (var i=0;i<Stocks.length;i++){
-                 stockList += '<li>'+ Stocks[i].stockName +'</li>';
+                 stockList += '<li>'+ Stocks[i].stockName +'  <button onclick="removeStock('+Stocks[i].stockName.toString()+');">Remove</button> </li>';
            }
            stockList+= "</ul>"
            console.log(stockList);

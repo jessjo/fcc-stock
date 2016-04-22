@@ -26,11 +26,23 @@
             
         }
         
+        function removeStock(stock){
+            console.log("remove this stock" + stock);
+            socket.emit('remove stock', stock);
+            
+        }
+        
          socket.on('chat message', function(msg){
            var node = document.createElement("LI");                 // Create a <li> node
            var textnode = document.createTextNode(msg);         // Create a text node
            node.appendChild(textnode);                              // Append the text to <li>
            document.getElementById("messages").appendChild(node);     // Append <li> to <ul> with id="myList"
+         });
+         
+         socket.on('remove stock', function(stock){
+             //get removed stock and pass back to server so server can remove
+             console.log("code reached");
+             
          });
         
         
