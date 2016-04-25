@@ -8,42 +8,12 @@ var Stocks = require('../models/stocks.js');
 
 module.exports = function (app, db) {
 
-function callAPI(res){
-	// in the future we should run this for every stock we have.
-		var stockTicker = "GOOG";
-		var url = 'https://www.quandl.com/api/v3/datasets/WIKI/' + stockTicker + '.json?api_key=ZsQyRq1Tvfyosp-zkr1w';
-		request(url, function (error, response, body) {
-  		if (!error && response.statusCode != 'undefined' && response.statusCode == 200) {
-    		var marketresponse = JSON.parse(body);
-    		//console.log("Got a response: ", marketresponse.dataset.data);
-    		var stockPriceArr =[];
-    		parseAPI(res, marketresponse);
-  		} else {
-			 console.log("Got an error: ", error, ", status code: ", response.statusCode);
-			 //skip parse API and return error page?
-  		}
-		});
-	
-}
 
-function parseAPI (res,data){
-	//this is where I parse things to upload
-	var closePrices = [];
-	for (var i=0; i<data.dataset.data.length; i++){
-    			closePrices[i] = data.dataset.data[i][4];
-    		}
-	//console.log ("start date was "+ data.dataset.data[data.dataset.data.length-1][0]);
-
-
-	loadPage(res, JSON.stringify(data));
-}
-
-function loadPage(res, marketresponse){
+function loadPage(res){
 	
 	// 
  	activeStocks(function(stockList){
 			var data = {
-				graph:marketresponse,
 				stocks: stockList
 					
 				}
@@ -56,9 +26,7 @@ function loadPage(res, marketresponse){
            
                 }); 
 		});
-		
-		// TODO a call back to make sure stock list is defined. 
-		
+
 			
 	
 }
@@ -84,7 +52,7 @@ function activeStocks(printPage){
 app.route('/')
 		.get(function (req, res) {
 			
-			callAPI(res);
+			loadPage(res);
 			
 			
 		});
