@@ -28,8 +28,9 @@
         }
         
         function removeStock(stock){
-            console.log("remove this stock" + stock);
             socket.emit('remove stock', stock);
+            
+    
             return false;
         }
         
@@ -41,7 +42,7 @@
            node.setAttribute("id", msg);
            var textnode = document.createTextNode(msg);
            var btn = document.createElement("button");
-           btn.setAttribute("onclick",'removeStock(' +"'"+msg+ "'"+');');
+           btn.setAttribute("onclick",'removeStock(' +"'"+msg+ "'"+ ');');
            var btnContent =document.createTextNode("Remove");
            btn.appendChild(btnContent)
            node.appendChild(textnode);                              // Append the text to <li>
@@ -96,8 +97,10 @@ function prepareForChart() {
         })
         .fail(function(jqXHR, textStatus, errorThrown) { 
            //if jquery request fails, remove item, pop up error on this users screen
-           document.getElementById("error").innerHTML = "Sorry, "+ name + " is not a recognized stock symbol. Enter a new symbol to try again."
-           removeStock(name);
+               console.log(name + " failed. Will remove this.")
+                 document.getElementById("error").innerHTML = "A user entererd, <b>"+ name + "</b>. This is not a recognized stock symbol. Enter a new symbol to try again."
+
+            
             
         })
     });
