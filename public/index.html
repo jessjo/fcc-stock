@@ -96,6 +96,8 @@ function prepareForChart() {
         })
         .fail(function(jqXHR, textStatus, errorThrown) { 
            //if jquery request fails, remove item, pop up error on this users screen
+           document.getElementById("error").innerHTML = "Sorry, "+ name + " is not a recognized stock symbol. Enter a new symbol to try again."
+           removeStock(name);
             
         })
     });
@@ -175,7 +177,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		<div id="container" style="height: 400px; min-width: 310px"></div>
 		
 		<p>{{{stocks}}}</p>
+		<div id = "error"></div>
 		<div id="stocks"></div>
+	
 
 	</body>
 
