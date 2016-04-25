@@ -74,8 +74,7 @@ function prepareForChart() {
 
     $.each(names, function (i, name) {
 
-        $.getJSON( 'https://www.quandl.com/api/v3/datasets/WIKI/' + name.toLowerCase() + '.json?api_key=ZsQyRq1Tvfyosp-zkr1w',    function (data) {
-
+        jQuery.getJSON( 'https://www.quandl.com/api/v3/datasets/WIKI/' + name.toLowerCase() + '.json?api_key=ZsQyRq1Tvfyosp-zkr1w',    function (data) {
 
           processData(data, function(processed){
              seriesOptions[i] = {
@@ -94,7 +93,11 @@ function prepareForChart() {
                 
             
 
-        });
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) { 
+           //if jquery request fails, remove item, pop up error on this users screen
+            
+        })
     });
 };
 
