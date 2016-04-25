@@ -71,9 +71,48 @@ $(function() {
     }
     console.log(names);
 
-    function createChart() {
+    $.each(names, function (i, name) {
 
-        $('#container').highcharts('StockChart', {
+        $.getJSON( 'https://www.quandl.com/api/v3/datasets/WIKI/' + name.toLowerCase() + '.json?api_key=ZsQyRq1Tvfyosp-zkr1w',    function (data) {
+
+
+          processData(data, function(processed){
+             seriesOptions[i] = {
+                name: name,
+                data: processed
+            };
+            
+            seriesCounter += 1;
+
+            if (seriesCounter === names.length) {
+                createChart(seriesOptions);
+            }
+              
+          })
+           
+                
+            
+
+        });
+    });
+});
+
+function processData(data, spitOutChart ) {
+     //processes data into an array of dates, values
+            var processed = [];
+            var startdate =data.dataset.data[data.dataset.data.length-1][0];
+           	for (var i=0; i<data.dataset.data.length; i++){
+    			processed[i] = [];
+    			processed[i][0] = Math.floor(moment(startdate).add(i, 'days').format('x'));
+    			processed[i][1] = data.dataset.data[i][4];
+    	
+    		}
+    spitOutChart(processed);
+    console.log(processed);
+}
+        
+function createChart(seriesOptions){
+     $('#container').highcharts('StockChart', {
 
             rangeSelector: {
                 selected: 4
@@ -105,49 +144,7 @@ $(function() {
 
             series: seriesOptions
         });
-    }
-
-    $.each(names, function (i, name) {
-
-        $.getJSON( 'https://www.quandl.com/api/v3/datasets/WIKI/' + name.toLowerCase() + '.json?api_key=ZsQyRq1Tvfyosp-zkr1w',    function (data) {
-
-
-          processData(data, function(processed){
-             seriesOptions[i] = {
-                name: name,
-                data: processed
-            };
-            
-            seriesCounter += 1;
-
-            if (seriesCounter === names.length) {
-                createChart();
-            }
-              
-          })
-           
-                
-            
-
-        });
-    });
-});
-
-function processData(data, spitOutChart ) {
-     //processes data into an array of dates, values
-            var processed = [];
-            var startdate =data.dataset.data[data.dataset.data.length-1][0];
-           	for (var i=0; i<data.dataset.data.length; i++){
-    			processed[i] = [];
-    			processed[i][0] = Math.floor(moment(startdate).add(i, 'days').format('x'));
-    			processed[i][1] = data.dataset.data[i][4];
-    			//console.log(processed[i]);
-    		}
-    spitOutChart(processed);
-    console.log(processed);
 }
-        
-        
 
 
 
