@@ -59,7 +59,7 @@
          });
          
 
-$(function() {
+function prepareForChart() {
     var seriesOptions = [],
         seriesCounter = 0;
       var names = [];
@@ -95,7 +95,7 @@ $(function() {
 
         });
     });
-});
+};
 
 function processData(data, spitOutChart ) {
      //processes data into an array of dates, values
@@ -146,7 +146,9 @@ function createChart(seriesOptions){
         });
 }
 
-
+document.addEventListener('DOMContentLoaded', function() {
+    prepareForChart();
+}, false);
 
 
 	</script>
