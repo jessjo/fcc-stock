@@ -32,6 +32,8 @@ function loadPage(res){
 }
 
 function activeStocks(printPage){
+	
+	//goes through recent stocks and adds them to list below
 	Stocks.find().sort().limit(10).exec(function(err, Stocks){
 		if (err) throw err;
 		if (Stocks){

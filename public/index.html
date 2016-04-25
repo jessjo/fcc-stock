@@ -39,9 +39,14 @@
            console.log("prepare to add stock")
            var node = document.createElement("li");  
            node.setAttribute("id", msg);
-           var textnode = document.createTextNode(msg);         // Create a text node
+           var textnode = document.createTextNode(msg);
+           var btn = document.createElement("button");
+           btn.setAttribute("onclick",'removeStock(' +"'"+msg+ "'"+');');
+           var btnContent =document.createTextNode("Remove");
+           btn.appendChild(btnContent)
            node.appendChild(textnode);                              // Append the text to <li>
            document.getElementById("stocklist").appendChild(node);
+           document.getElementById(msg).appendChild(btn);
          });
          
          
