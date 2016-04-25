@@ -36,22 +36,25 @@
         
         
          socket.on('chat message', function(msg){
+           console.log("prepare to add stock")
            var node = document.createElement("li");  
            node.setAttribute("id", msg);
            var textnode = document.createTextNode(msg);         // Create a text node
            node.appendChild(textnode);                              // Append the text to <li>
-           document.getElementById("stockList").appendChild(node);     // 
+           document.getElementById("stocklist").appendChild(node);
          });
+         
          
          socket.on('remove stock', function(stock){
             console.log("prepare to remove stock");
             var element = document.getElementById(stock);
             element.outerHTML = "";
+
              
          });
          
 
-$(function () {
+$(function() {
     var seriesOptions = [],
         seriesCounter = 0;
       var names = [];

@@ -25,8 +25,7 @@ var sockets = [];
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
      console.log('message: ' + msg);
-     io.emit('chat message', msg);
-     Stocks.findOne({ 'stockName': msg }, function (err, stock) {
+         Stocks.findOne({ 'stockName': msg }, function (err, stock) {
             if (err) throw err;
             console.log(stock);
             if(stock){
@@ -39,10 +38,13 @@ io.on('connection', function(socket){
                   newDoc.save(function (err, doc) {
                     if (err) { throw err; }
                     console.log("saved!");
+                     io.emit('chat message', msg);
                   });
+                    
             }
 
-    });
+     });
+
      
     
   });
@@ -50,7 +52,7 @@ io.on('connection', function(socket){
     console.log('stock: ' + stock);
     Stocks.remove({ 'stockName': stock }, function(err) {
     if (!err) {
-            console.log ('success')
+            console.log ('success removed')
     }
     else {
             throw err;
