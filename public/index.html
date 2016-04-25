@@ -47,6 +47,7 @@
            node.appendChild(textnode);                              // Append the text to <li>
            document.getElementById("stocklist").appendChild(node);
            document.getElementById(msg).appendChild(btn);
+           prepareForChart();
          });
          
          
@@ -54,7 +55,7 @@
             console.log("prepare to remove stock");
             var element = document.getElementById(stock);
             element.outerHTML = "";
-
+            prepareForChart();
              
          });
          
