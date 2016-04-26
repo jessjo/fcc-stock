@@ -53,9 +53,8 @@ function activeStocks(printPage){
 
 app.get('/', function (req, res) {
 			
-			//loadPage(res);
-			res.send("test");
-			
+			loadPage(res);
+	
 			
 		});
 
