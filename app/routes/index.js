@@ -51,9 +51,7 @@ function activeStocks(printPage){
 	});
 }
 
-
-app.route('/')
-		.get(function (req, res) {
+app.get('/', function (req, res) {
 			
 			loadPage(res);
 			
