@@ -172,18 +172,28 @@ document.addEventListener('DOMContentLoaded', function() {
 	</header>
 
 	<body>
-	    <h2>Stock Tracker</h2>
+	    <center><h2>Stock Tracker</h2></center>
   
     <form>
+        <center>
  
                 <form action="">
-                  <input id="m" autocomplete="off" /><button onclick="getRequest();">Add Stock</button>
+                    <input id="m" autocomplete="off" /><button onclick="getRequest();">Add Stock</button>
                 </form>
+                        </center>
+        <br/>
+        
+                <div class="well">
+                    
+
 		<div id="container" style="height: 400px; min-width: 310px"></div>
-		
+		</div>
+		<div class="well">
+		<h4>Current Stocks:</h4>
 		<p>{{{stocks}}}</p>
 		<div id = "error"></div>
 		<div id="stocks"></div>
+		</div>
 	
 
 	</body>
